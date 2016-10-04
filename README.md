@@ -12,10 +12,14 @@ Since the use of those methods and tools are not supported, use it at your own r
 1. [Mscrm.FormControlInputBehavior](#mscrmformcontrolinputbehavior)
     1. [GetBehavior(id)](#getbehaviorid)
 1. [Mscrm.InlinePresenceLookupUIBehavior](#mscrminlinepresencelookupuibehavior)
-    1. [prototype.set_disableInlineLookup(value)](#prototype.setdisableinlinelookupvalue)
+    1. [prototype.onLookup(domEvent)](#prototypeonlookupdomevent)
+    1. [prototype.set_disableInlineLookup(value)](#prototypesetdisableinlinelookupvalue)
+    1. [prototype.set_lookupTypes(value)](#prototypesetlookuptypesvalue)
+    1. [showInlineLookupMenu()](#showinlinelookupmenu)
 1. [Mscrm.ReadFormUtilities](#mscrm.readformutilities)
     1. [openLookup(resolved,domEvent)](#openlookupresolveddomevent)
-
+1. [Sys.UI.DomEvent](#sysuidomevent)
+    1. [addHandlers(f,d,c,e)](#addhandlersfdce)
 ---
 ## Mscrm.Utilities
 #### clearAllHandlersInSubtree(element)
@@ -33,15 +37,43 @@ Mscrm.Utilities.clearAllHandlersInSubtree($element);
 ### GetBehavior(id)
 - id: the DOM element's id to get the behavior
 
-Returns the behavior related to the control passed as argument. It allows us to access the inner methods to manage de control's behavior, like lookup's behaviors and so on.
+Returns the behavior related to the control which id was passed as argument. It allows us to access the inner methods to manage de control's behavior, like lookup's behaviors and so on.
 
 Could not map all the possible return types since it is Object, but using lookups as an example, the returned type is [`Mscrm.InlinePresenceLookupUIBehavior`](#mscrm.inlinepresencelookupuibehavior).
 
+Usage example:
+```js
+var behavior = Mscrm.FormControlInputBehavior.GetBehavior("regardingobjectid_i");
+```
+
 ## Mscrm.InlinePresenceLookupUIBehavior
+### prototype.OnLookup(domEvent)
+- domEvent: the `Sys.UI.DomEvent(event)` related to the action
+
+This is the default action attached to the click event of the lookup control when it is an inline lookup in mobile form. The action triggers the lookup pre-search and shows the pre-search window. It would be able to perform a textual search against an inputed value but the field is locked for typing (it actually performs a search against an empty string...).
+
+### prototype.get_lookupTypes()
+
+Returns a string with a comma separated values list with the types of entities supported by the lookup control.
+
 ### prototype.set_disableInlineLookup(value)
 - value: a boolean indicating if inline lookup must be enabled (false) or disabled (true)
 
 Changes the lookup component behavior as inline or not. If it is inline, the pre-search window is always shown and the user must click *Lookup more records* to search. If it is not inline, when the control is clicked the search window is immediately shown, allowing the user to begin to search straight away.
+
+### prototype.set_lookupTypes(value)
+- value: comma separated values list of entity type codes
+
+Sets the types of entities supported by the lookup control.
+
+Usage example:
+```js
+//This will set the lookup to accept Account and Contact
+Mscrm.FormControlInputBehavior.GetBehavior("regardingobjectid_i").set_lookupTypes("1,2");
+```
+
+### showInlineLookupMenu()
+Triggers the lookup's pre-search window, performing a query against the value in the input (if applicable).
 
 ## Mscrm.ReadFormUtilities
 ### openLookup(resolved,domEvent)
@@ -49,3 +81,14 @@ Changes the lookup component behavior as inline or not. If it is inline, the pre
 - domEvent: the `Sys.UI.DomEvent(event)` related to the action
 
 This method usage was first noticed in the *Lookup more records* link from the lookup pre-search window. This link opens the lookup search form when clicked. This is the default action attached to this element's click event.
+
+## Sys.UI.DomEvent
+#### addHandler(a,d,e,g)
+- a: the element to attach handler
+- d: the event name to be attached (like `"click"`,`"blur"`, etc)
+- e: handler function delegate 
+- g: boolean indicating if the handlers must be disposed (?uncertain)
+
+Usage example:
+
+

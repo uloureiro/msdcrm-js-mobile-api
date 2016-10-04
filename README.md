@@ -7,16 +7,16 @@ Since the use of those methods and tools are not supported, use it at your own r
 ---
 ### Table of contents
 
- 1. [Mscrm.Utilities](#Mscrm.Utilities)
-    1. [clearAllHandlersInSubtree(element)](#clearAllHandlersInSubtree(element))
-1. [Mscrm.FormControlInputBehavior](#Mscrm.FormControlInputBehavior)
-    1. [GetBehavior(id)](#GetBehavior(id))
-1. [Mscrm.InlinePresenceLookupUIBehavior](#Mscrm.InlinePresenceLookupUIBehavior)
-    1. prototype
-1. [Mscrm.ReadFormUtilities](#Mscrm.ReadFormUtilities)
-    1. [openLookup(resolved,domEvent)](#openLookup(resolved,domEvent))
- ---
+1. [Mscrm.Utilities](#mscrmutilities)
+    1. [clearAllHandlersInSubtree(element)](#clearallhandlersinsubtreeelement)
+1. [Mscrm.FormControlInputBehavior](#mscrmformcontrolinputbehavior)
+    1. [GetBehavior(id)](#getbehaviorid)
+1. [Mscrm.InlinePresenceLookupUIBehavior](#mscrminlinepresencelookupuibehavior)
+    1. [prototype.set_disableInlineLookup(value)](#prototype.setdisableinlinelookupvalue)
+1. [Mscrm.ReadFormUtilities](#mscrm.readformutilities)
+    1. [openLookup(resolved,domEvent)](#openlookupresolveddomevent)
 
+---
 ## Mscrm.Utilities
 #### clearAllHandlersInSubtree(element)
 - element: the DOM element to be cleared
@@ -35,7 +35,13 @@ Mscrm.Utilities.clearAllHandlersInSubtree($element);
 
 Returns the behavior related to the control passed as argument. It allows us to access the inner methods to manage de control's behavior, like lookup's behaviors and so on.
 
-Could not map all the possible return types since it is Object, but using lookups as an example, the returned type is `Mscrm.InlinePresenceLookupUIBehavior`.
+Could not map all the possible return types since it is Object, but using lookups as an example, the returned type is [`Mscrm.InlinePresenceLookupUIBehavior`](#mscrm.inlinepresencelookupuibehavior).
+
+## Mscrm.InlinePresenceLookupUIBehavior
+### prototype.set_disableInlineLookup(value)
+- value: a boolean indicating if inline lookup must be enabled (false) or disabled (true)
+
+Changes the lookup component behavior as inline or not. If it is inline, the pre-search window is always shown and the user must click *Lookup more records* to search. If it is not inline, when the control is clicked the search window is immediately shown, allowing the user to begin to search straight away.
 
 ## Mscrm.ReadFormUtilities
 ### openLookup(resolved,domEvent)

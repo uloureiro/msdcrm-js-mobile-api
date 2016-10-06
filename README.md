@@ -5,6 +5,7 @@ This is a personal and unofficial documentation for MSDCRM Javascript Mobile API
 Since the use of those methods and tools are not supported, use it at your own risk. No warranties provided.
 
 ---
+
 ### Table of contents
 
 1. [Mscrm.Utilities](#mscrmutilities)
@@ -20,7 +21,9 @@ Since the use of those methods and tools are not supported, use it at your own r
     1. [openLookup(resolved,domEvent)](#openlookupresolveddomevent)
 1. [Sys.UI.DomEvent](#sysuidomevent)
     1. [addHandlers(f,d,c,e)](#addhandlersfdce)
+
 ---
+
 ## Mscrm.Utilities
 #### clearAllHandlersInSubtree(element)
 - element: the DOM element to be cleared
@@ -48,7 +51,7 @@ var behavior = Mscrm.FormControlInputBehavior.GetBehavior("regardingobjectid_i")
 
 ## Mscrm.InlinePresenceLookupUIBehavior
 ### prototype.OnLookup(domEvent)
-- domEvent: the `Sys.UI.DomEvent(event)` related to the action
+- domEvent: the [`Sys.UI.DomEvent(event)`](#sysuidomeventevent) related to the action
 
 This is the default action attached to the click event of the lookup control when it is an inline lookup in mobile form. The action triggers the lookup pre-search and shows the pre-search window. It would be able to perform a textual search against an inputed value but the field is locked for typing (it actually performs a search against an empty string...).
 
@@ -78,7 +81,7 @@ Triggers the lookup's pre-search window, performing a query against the value in
 ## Mscrm.ReadFormUtilities
 ### openLookup(resolved,domEvent)
 - resolved: a boolean indicating if the action should be performed (yet under discover...)
-- domEvent: the `Sys.UI.DomEvent(event)` related to the action
+- domEvent: the [`Sys.UI.DomEvent(event)`](#sysuidomeventevent) related to the action
 
 This method usage was first noticed in the *Lookup more records* link from the lookup pre-search window. This link opens the lookup search form when clicked. This is the default action attached to this element's click event.
 
@@ -90,5 +93,13 @@ This method usage was first noticed in the *Lookup more records* link from the l
 - g: boolean indicating if the handlers must be disposed (?uncertain)
 
 Usage example:
-
-
+```js
+var $regardingobjectid_i = document.querySelector("#regardingobjectid_i");
+Sys.UI.DomEvent.addHandler(
+    $regardingobjectid_i,
+    "click",
+    function() {
+        console.log("clicked!");
+    }, 
+    false);
+```

@@ -8,8 +8,6 @@ Since the use of those methods and tools are not supported, use it at your own r
 
 ### Table of contents
 
-1. [Mscrm.Utilities](#mscrmutilities)
-    1. [clearAllHandlersInSubtree(element)](#clearallhandlersinsubtreeelement)
 1. [Mscrm.FormControlInputBehavior](#mscrmformcontrolinputbehavior)
     1. [GetBehavior(id)](#getbehaviorid)
 1. [Mscrm.InlinePresenceLookupUIBehavior](#mscrminlinepresencelookupuibehavior)
@@ -17,24 +15,17 @@ Since the use of those methods and tools are not supported, use it at your own r
     1. [prototype.set_disableInlineLookup(value)](#prototypesetdisableinlinelookupvalue)
     1. [prototype.set_lookupTypes(value)](#prototypesetlookuptypesvalue)
     1. [showInlineLookupMenu()](#showinlinelookupmenu)
+1. [Mscrm.MobileProgressBar](#mscrmmobileprogressbar)
+    1. [hideIndefiniteProgressBar()](#hideindefiniteprogressbar)
+    1. [showIndefiniteProgressBar()](#showindefiniteprogressbar)
 1. [Mscrm.ReadFormUtilities](#mscrm.readformutilities)
     1. [openLookup(resolved,domEvent)](#openlookupresolveddomevent)
+1. [Mscrm.Utilities](#mscrmutilities)
+    1. [clearAllHandlersInSubtree(element)](#clearallhandlersinsubtreeelement)
 1. [Sys.UI.DomEvent](#sysuidomevent)
     1. [addHandler(a,d,e,g)](#addhandleradeg)
 
 ---
-
-## Mscrm.Utilities
-#### clearAllHandlersInSubtree(element)
-- element: the DOM element to be cleared
-
-Removes all the attached event handlers from the `_events` property and from the element itself. The `element` argument must be the "_i" element variation in order to this method work. Example: `regardingobjectid_i`.
-
-Usage example:
-```js
-var $element = document.querySelector("#regardingobjectid_i");
-Mscrm.Utilities.clearAllHandlersInSubtree($element);
-```
 
 ## Mscrm.FormControlInputBehavior
 ### GetBehavior(id)
@@ -78,12 +69,40 @@ Mscrm.FormControlInputBehavior.GetBehavior("regardingobjectid_i").set_lookupType
 ### showInlineLookupMenu()
 Triggers the lookup's pre-search window, performing a query against the value in the input (if applicable).
 
+## Mscrm.MobileProgressBar
+### hideIndefiniteProgressBar()
+Hides the *Loading* overlay used to display an ongoing process to the end user.
+Usage example:
+```js
+// This will hide the 'Loading' overlay
+Mscrm.MobileProgressBar.hideIndefiniteProgressBar();
+```
+### showIndefiniteProgressBar()
+Shows the *Loading* overlay used to display an ongoing process to the end user.
+Usage example:
+```js
+// This will show the 'Loading' overlay
+Mscrm.MobileProgressBar.showIndefiniteProgressBar();
+```
+
 ## Mscrm.ReadFormUtilities
 ### openLookup(resolved,domEvent)
 - resolved: a boolean indicating if the action should be performed (yet under discover...)
 - domEvent: the [`Sys.UI.DomEvent(event)`](#sysuidomeventevent) related to the action
 
 This method usage was first noticed in the *Lookup more records* link from the lookup pre-search window. This link opens the lookup search form when clicked. This is the default action attached to this element's click event.
+
+## Mscrm.Utilities
+#### clearAllHandlersInSubtree(element)
+- element: the DOM element to be cleared
+
+Removes all the attached event handlers from the `_events` property and from the element itself. The `element` argument must be the "_i" element variation in order to this method work. Example: `regardingobjectid_i`.
+
+Usage example:
+```js
+var $element = document.querySelector("#regardingobjectid_i");
+Mscrm.Utilities.clearAllHandlersInSubtree($element);
+```
 
 ## Sys.UI.DomEvent
 #### addHandler(a,d,e,g)

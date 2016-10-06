@@ -20,7 +20,7 @@ Since the use of those methods and tools are not supported, use it at your own r
 1. [Mscrm.ReadFormUtilities](#mscrm.readformutilities)
     1. [openLookup(resolved,domEvent)](#openlookupresolveddomevent)
 1. [Sys.UI.DomEvent](#sysuidomevent)
-    1. [addHandlers(f,d,c,e)](#addhandlersfdce)
+    1. [addHandler(a,d,e,g)](#addhandleradeg)
 
 ---
 

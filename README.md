@@ -122,3 +122,69 @@ Sys.UI.DomEvent.addHandler(
     }, 
     false);
 ```
+## lookupinfo.aspx
+#### Adding a custom view to mobile Lookup controls (bug)
+Two adjustments are needed in lokupinfo.aspx JS (C:\Program Files\Microsoft Dynamics CRM\CRMWeb\_controls\lookup\lookupinfo.aspx).
+
+Before:
+```js
+// Within function OnRecordTypeChange(oSelect, bFromOnLoad), find  the following piece of code.
+for (var i = 0; i < customViews.length; i++) {
+    if (typeCode == customViews[i].recordType) {
+            var firstChild = XUI.Html.DomUtils.GetLastChild(tdViewSelector);
+        }
+        else {
+            var firstChild = XUI.Html.DomUtils.GetFirstChild(tdViewSelector);
+        }
+    var tempItem = firstChild.options[firstChild.options.length - 1 - i];
+    tempItem.text = customViews[i].name;
+    tempItem.value = customViews[i].id;
+    tempItem.setAttribute('Type', Mscrm.EntityTypeCode.SavedQuery);
+    }
+}
+
+if (oSelect.tagName == "SELECT") {
+    XUI.Html.DomUtils.GetFirstChild(tdViewSelector).value = oSelect.options[oSelect.selectedIndex].getAttribute("guid");
+} 
+else {
+    if(Mscrm.Utilities.isMobileRefresh()) {
+        XUI.Html.DomUtils.GetLastChild(tdViewSelector).value = oSelect.getAttribute("guid");
+    }
+    else {
+        XUI.Html.DomUtils.GetFirstChild(tdViewSelector).value = oSelect.getAttribute("guid");
+    }
+}
+```
+
+After:
+```js
+//Then change it to match the following.
+for (var i = 0; i < customViews.length; i++) {
+    if (typeCode == customViews[i].recordType) {
+        //the following conditional is added to behave in a specific way when dealing with mobile
+        if(Mscrm.Utilities.isMobileRefresh()) {
+            var firstChild = XUI.Html.DomUtils.GetLastChild(tdViewSelector);
+        }
+        else {
+            var firstChild = XUI.Html.DomUtils.GetFirstChild(tdViewSelector);
+        }
+        var tempItem = firstChild.options[firstChild.options.length - 1 - i];
+        tempItem.text = customViews[i].name;
+        tempItem.value = customViews[i].id;
+        tempItem.setAttribute('Type', Mscrm.EntityTypeCode.SavedQuery);
+    }
+}
+
+if (oSelect.tagName == "SELECT") {
+    XUI.Html.DomUtils.GetFirstChild(tdViewSelector).value = oSelect.options[oSelect.selectedIndex].getAttribute("guid");
+}
+else {
+    //the following conditional is added to behave in a specific way when dealing with mobile
+    if(Mscrm.Utilities.isMobileRefresh()) {
+        XUI.Html.DomUtils.GetLastChild(tdViewSelector).value = oSelect.getAttribute("guid");
+    }
+    else {
+        XUI.Html.DomUtils.GetFirstChild(tdViewSelector).value = oSelect.getAttribute("guid");
+    }
+}
+```

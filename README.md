@@ -24,8 +24,9 @@ Since the use of those methods and tools are not supported, use it at your own r
     1. [clearAllHandlersInSubtree(element)](#clearallhandlersinsubtreeelement)
 1. [Sys.UI.DomEvent](#sysuidomevent)
     1. [addHandler(a,d,e,g)](#addhandleradeg)
-1. [lookupinfo.aspx](#lookupinfo.aspx)
-    1. [Adding a custom view to mobile Lookup controls (bug)](#addingacustomviewtomobilelookupcontrolsbug)
+1. [lookupinfo.aspx](#lookupinfoaspx)
+    1. [Adding a custom view to mobile Lookup controls (bug)](#addingacustomviewtmobilelookupcontrolsbug)
+
 ---
 
 ## Mscrm.FormControlInputBehavior
